@@ -13,6 +13,4 @@ Route::get('/home', function () {
 });
 
 //back pages
-Route::get('/login', function () {
-    return view('back pages/login' , ['title' => 'Login']);
-});
+
