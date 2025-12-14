@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -18,9 +19,10 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'Name',
+        'Email_Address',
+        'Password',
+        'role',
     ];
 
     /**
@@ -29,7 +31,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $hidden = [
-        'password',
+        'Password',
         'remember_token',
     ];
 
@@ -42,7 +44,25 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'Password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the password for the user.
+     * Overriding default 'password' column to 'Password'
+     */
+    public function getAuthPassword()
+    {
+        return $this->Password;
+    }
+    public function keranjang(): HasMany
+    {
+        return $this->hasMany(Keranjang::class, 'users_id');
+    }
+
+    public function transaksi(): HasMany
+    {
+        return $this->hasMany(Transaksi::class, 'users_id');
     }
 }
