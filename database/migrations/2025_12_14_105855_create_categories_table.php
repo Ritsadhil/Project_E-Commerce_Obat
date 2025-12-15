@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('keranjang', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('users_id')->constrained()->onDelete('cascade');
-            $table->foreignId('obat_id')->constrained()->onDelete('cascade');
-            $table->integer('Jumlah');
-            $table->integer('Total_Harga');
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id(); // Mewakili Categories_ID
+            $table->string('Category'); // Sesuai ERD
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('keranjang');
+        Schema::dropIfExists('categories');
     }
 };
