@@ -12,15 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->id(); // Mewakili transaction_ID
+            $table->id();
 
-            // Relasi ke User & Cart
+            // Pembeli
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('cart_id')->constrained('carts')->onDelete('cascade');
 
-            $table->integer('Total_Price');
-            $table->string('address');
-            $table->enum('Delivery_Status', ['dikemas', 'dikirim', 'diterima']);
+            $table->date('transaction_date'); // Tanggal Transaksi
+            $table->integer('total_price');   // Total Belanja
+            $table->text('shipping_address'); // Alamat kirim saat transaksi itu terjadi
+
+            // Status Pengiriman & Pembayaran
+            $table->enum('status', ['unpaid', 'paid', 'shipping', 'completed', 'cancelled'])->default('unpaid');
+
             $table->timestamps();
         });
     }

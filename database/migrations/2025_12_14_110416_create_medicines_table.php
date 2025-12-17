@@ -12,18 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('medicines', function (Blueprint $table) {
-            $table->id(); // Mewakili Medicine_ID
-            $table->string('Medicine_Name');
-            $table->string('Image')->nullable();
-            $table->integer('Price');
-            $table->integer('Stock');
-            $table->string('Description');
-
-            // Foreign Keys (Menghubungkan ke categories & suppliers)
-            // Kita gunakan nama standar _id agar Laravel otomatis paham relasinya
+            $table->id();
+            $table->string('name');
+            $table->string('slug');
+            $table->text('description');
+            $table->string('image')->nullable();
+            $table->integer('price');
+            $table->integer('stock');
+            // Relasi ke Kategori
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            $table->foreignId('supplier_id')->constrained('suppliers')->onDelete('cascade');
-
             $table->timestamps();
         });
     }
