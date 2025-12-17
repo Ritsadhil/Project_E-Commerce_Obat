@@ -13,17 +13,11 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-
-            // Pembeli
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-
-            $table->date('transaction_date'); // Tanggal Transaksi
-            $table->integer('total_price');   // Total Belanja
-            $table->text('shipping_address'); // Alamat kirim saat transaksi itu terjadi
-
-            // Status Pengiriman & Pembayaran
-            $table->enum('status', ['unpaid', 'paid', 'shipping', 'completed', 'cancelled'])->default('unpaid');
-
+            $table->date('transaction_date');
+            $table->integer('total_price');
+            $table->text('shipping_address');
+            $table->enum('status', ['dikemas', 'dikirim', 'diterima'])->default('dikemas');
             $table->timestamps();
         });
     }
