@@ -12,60 +12,6 @@
             background: #f5f5f5;
         }
 
-        /* ================= NAVBAR ================= */
-        .navbar {
-            background: #166b73;
-            padding: 15px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            color: #fff;
-        }
-
-        .navbar-logo {
-            display: flex;
-            align-items: center;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .navbar-logo span.icon {
-            background: #ffffff33;
-            padding: 8px 12px;
-            border-radius: 50%;
-            margin-right: 10px;
-            font-size: 22px;
-        }
-
-        .navbar-search {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
-
-        .navbar-search input {
-            width: 50%;
-            padding: 10px 15px;
-            border-radius: 10px;
-            border: none;
-            font-size: 15px;
-        }
-
-        .navbar-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .nav-btn {
-            background: #fff;
-            color: #166b73;
-            padding: 8px 18px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
         /* ================= HERO ================= */
         .hero {
             width: 100%;
@@ -156,23 +102,10 @@
 </head>
 
 <body>
-
     <!-- NAVBAR -->
-    <div class="navbar">
-        <div class="navbar-logo">
-            <span class="icon">+</span> MedStore
-        </div>
-
-        <div class="navbar-search">
-            <input type="text" placeholder="Cari di MedStore" />
-        </div>
-
-        <div class="navbar-right">
-            <div style="font-size: 26px; cursor: pointer;">🛒</div>
-            <a href="#" class="nav-btn">Masuk</a>
-            <a href="#" class="nav-btn">Daftar</a>
-        </div>
-    </div>
+    <x-layout>
+    <x-slot:title>Home</x-slot:title>
+ 
 
     <!-- HERO -->
     <div class="hero">
@@ -217,6 +150,6 @@
         </div>
 
     </div>
-
+    </x-layout>
 </body>
 </html>
