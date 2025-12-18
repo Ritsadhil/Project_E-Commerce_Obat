@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->id(); // Mewakili Categories_ID
-            $table->string('Category'); // Sesuai ERD
+            $table->id();
+            $table->string('name'); // Contoh: "Obat Keras", "Vitamin"
             $table->timestamps();
         });
     }

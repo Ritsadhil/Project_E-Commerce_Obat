@@ -11,14 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('carts', function (Blueprint $table) {
+        Schema::create('transaction_details', function (Blueprint $table) {
             $table->id();
-            // Siapa yang punya keranjang?
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            // Obat apa yang dimasukkan?
+
+            // Terhubung ke Transaksi mana?
+            $table->foreignId('transaction_id')->constrained('transactions')->onDelete('cascade');
+
+            // Obat apa yang dibeli?
             $table->foreignId('medicine_id')->constrained('medicines')->onDelete('cascade');
 
-            $table->integer('quantity')->default(1);
+            $table->integer('quantity'); // Jumlah beli
+            $table->integer('price');    // Harga saat dibeli (Penting! Agar kalau harga obat naik, riwayat tetap harga lama)
+
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('carts');
+        Schema::dropIfExists('transaction_details');
     }
 };

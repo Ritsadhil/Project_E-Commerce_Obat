@@ -12,15 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->id(); // Mewakili transaction_ID
-
-            // Relasi ke User & Cart
+            $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('cart_id')->constrained('carts')->onDelete('cascade');
-
-            $table->integer('Total_Price');
-            $table->string('address');
-            $table->enum('Delivery_Status', ['dikemas', 'dikirim', 'diterima']);
+            $table->date('transaction_date');
+            $table->integer('total_price');
+            $table->text('shipping_address');
+            $table->enum('status', ['dikemas', 'dikirim', 'diterima'])->default('dikemas');
             $table->timestamps();
         });
     }
