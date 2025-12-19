@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->id('Users_ID'); // Sesuai ERD
-            $table->string('Nama');
-            $table->string('Email')->unique();
-            $table->string('Password');
-            $table->enum('role', ['user', 'admin'])->default('user');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+            // Role: Pembeda Admin dan User biasa [cite: 48]
+            $table->enum('role', ['admin', 'user'])->default('user');
+            // Data tambahan untuk pengiriman
+            $table->string('phone')->nullable();
+            $table->text('address')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
 

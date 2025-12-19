@@ -116,35 +116,35 @@
             <a href="#" class="btn-primary">Belanja Sekarang</a>
         </div>
 
-        <img src="/public/img/DOC3.png" alt="Dokter">
+        <img src="img/DOC3.png" alt="Dokter">
     </div>
 
     <!-- PRODUCT SECTION -->
     <div class="product-section">
 
         <div class="product-card">
-            <img src="/public/img/ANTANGIN.png" alt="Antangin">
+            <img src="img/ANTANGIN.png" alt="Antangin">
             <h3>Antangin</h3>
             <p>Rp 4.000</p>
             <button>Tambah ke keranjang</button>
         </div>
 
         <div class="product-card">
-            <img src="/public/img/CAVIPLEX.png" alt="Caviplex">
+            <img src="img/CAVIPLEX.png" alt="Caviplex">
             <h3>Caviplex Tablet</h3>
             <p>Rp 10.000</p>
             <button>Tambah ke keranjang</button>
         </div>
 
         <div class="product-card">
-            <img src="public/img/PARACETAMOL.png" alt="Paracetamol">
+            <img src="img/PARACETAMOL.png" alt="Paracetamol">
             <h3>Paracetamol 500mg</h3>
             <p>Rp 5.000</p>
             <button>Tambah ke keranjang</button>
         </div>
 
-        <div class="product-card">
-            <img src="public/img/BODREX.png" alt="Bodrex Extra">
+        <div class="product-card ">
+            <img src="img/BODREX.png" alt="Bodrex Extra">
             <h3>Bodrex Extra</h3>
             <p>Rp 5.000</p>
             <button>Tambah ke keranjang</button>

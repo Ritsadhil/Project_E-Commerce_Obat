@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Medicine extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+        'image',
+        'price',
+        'stock',
+        'category_id',
+        'dosis',
+        'peringatan'
+    ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Relasi: Obat ini ada di detail transaksi mana saja?
+     */
+    public function transactionDetails()
+    {
+        return $this->hasMany(TransactionDetail::class);
+    }
+}

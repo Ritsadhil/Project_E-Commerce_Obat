@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('Harga');
             $table->integer('Stok');
             $table->string('Deskripsi');
+            $table->text('Dosis');
+            $table->text('Peringatan');
 
             // Foreign Keys
             $table->foreignId('Kategori_ID')->constrained('kategoris', 'Kategori_ID')->onDelete('cascade');
