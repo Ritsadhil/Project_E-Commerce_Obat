@@ -81,7 +81,6 @@
         <!-- UBAH form, tambahkan flex-1 dan overflow handling -->
         <form action="/obat" method="POST" enctype="multipart/form-data" id="obatForm" class="flex-1 flex flex-col overflow-hidden">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <input type="hidden" name="_method" value="PUT">
 
             <!-- UBAH grid, tambahkan flex-1 -->
             <div class="grid grid-cols-2 gap-6 flex-1 overflow-hidden">
@@ -109,8 +108,9 @@
                             name="kategori" 
                             id="kategori"
                             class="input-bottom-border w-full text-white text-sm py-2 px-0"
+                            required
                         >
-                            <option value="">Pilih Kategori</option>
+                            <option value="" disabled {{ !$obat->kategori ? 'selected' : '' }}>Pilih Kategori</option>
                             <option value="Pil" {{ $obat->kategori == 'Pil' ? 'selected' : '' }}>Pil</option>
                             <option value="Tablet" {{ $obat->kategori == 'Tablet' ? 'selected' : '' }}>Tablet</option>
                             <option value="Sirup" {{ $obat->kategori == 'Sirup' ? 'selected' : '' }}>Sirup</option>
@@ -122,13 +122,11 @@
                     <div>
                         <label class="text-white text-base font-semibold mb-1 block">Harga</label>
                         <input 
-                            type="number" 
+                            type="text" 
                             name="harga" 
                             id="harga"
                             value="{{ $obat->harga }}"
                             class="input-bottom-border w-full text-white text-sm py-2 px-0"
-                            min="0"
-                            step="100"
                             required
                         >
                     </div>
@@ -137,12 +135,11 @@
                     <div>
                         <label class="text-white text-base font-semibold mb-1 block">Stock</label>
                         <input 
-                            type="number" 
+                            type="text" 
                             name="stok" 
                             id="stok"
                             value="{{ $obat->stok }}"
                             class="input-bottom-border w-full text-white text-sm py-2 px-0"
-                            min="0"
                             required
                         >
                     </div>
@@ -238,7 +235,10 @@
                 return false;
             }
 
-            if (harga < 0 || stok < 0) {
+            const hargaNum = parseFloat(harga);
+            const stokNum = parseFloat(stok);
+
+            if (isNaN(hargaNum) || hargaNum < 0 || isNaN(stokNum) || stokNum < 0) {
                 e.preventDefault();
                 alert('Harga dan stok harus berupa angka positif!');
                 return false;
