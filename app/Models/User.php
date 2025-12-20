@@ -6,63 +6,49 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
+     * Kolom yang boleh diisi (Mass Assignment)
      */
     protected $fillable = [
-        'Name',
-        'Email_Address',
-        'Password',
+        'name',
+        'email',
+        'password',
         'role',
+        'phone',
+        'address',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
+     * Relasi: Satu User bisa punya banyak Transaksi
      */
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    /**
+     * Relasi: Satu User bisa punya banyak barang di Keranjang
+     */
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
     protected $hidden = [
-        'Password',
+        'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
-            'Password' => 'hashed',
+            'password' => 'hashed',
         ];
-    }
-
-    /**
-     * Get the password for the user.
-     * Overriding default 'password' column to 'Password'
-     */
-    public function getAuthPassword()
-    {
-        return $this->Password;
-    }
-    public function keranjang(): HasMany
-    {
-        return $this->hasMany(Keranjang::class, 'users_id');
-    }
-
-    public function transaksi(): HasMany
-    {
-        return $this->hasMany(Transaksi::class, 'users_id');
     }
 }

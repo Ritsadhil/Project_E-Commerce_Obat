@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ $title ?? 'MedStore' }}</title>
+
+    {{-- Font Nexa --}}
+    <link href="https://fonts.cdnfonts.com/css/nexa-bold" rel="stylesheet">
+
+    {{-- Font Awesome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    {{-- Tailwind --}}
+    @vite('resources/css/app.css')
+</head>
+
+<body class="font-sans">
+
+    {{-- TOP BAR --}}
+    <div class="bg-[#018790] text-white text-[14px] py-2">
+        <div class="w-[90%] mx-auto flex items-center justify-between">
+            <span>
+                <i class="fa fa-phone mr-1"></i>
+                0812-2233-4455 | support@medstore.com
+            </span>
+            <span>Tentang Kami</span>
+        </div>
+    </div>
+
+    {{-- NAVBAR --}}
+    <nav class="bg-[#005461] py-4">
+        <div class="w-[90%] mx-auto flex items-center justify-between">
+
+            {{-- LOGO --}}
+            <div class="flex items-center gap-3">
+                <x-logo class="w-[50px] h-[50px]" />
+                <span class="text-white text-[50px] font-extrabold leading-none tracking-[0.4px]
+                            [text-shadow:-1px_-1px_0_#00B7B5,1px_-1px_0_#00B7B5,-1px_1px_0_#00B7B5,1px_1px_0_#00B7B5]">
+                    MedStore
+                </span>
+            </div>
+
+            {{-- SEARCH --}}
+            <input type="text" placeholder="Cari obat..." class="w-[250px] px-3 py-2 bg-white border border-[#018790] rounded-[8px] shadow-sm outline-none focus:ring-1 focus:ring-[#018790]">
+
+            {{-- NAV RIGHT --}}
+            <div class="flex items-center text-white">
+                <i class="fa fa-cart-shopping text-[22px] mr-5"></i>
+                <div class="h-7 w-px bg-white/50 mr-5"></div>
+
+                <a href="#"
+                   class="font-['Nexa'] text-[18px] font-semibold bg-white text-[#018790]
+                          border border-[#018790] px-4 py-2 rounded-md mr-3
+                          shadow-sm transition duration-200
+                          hover:bg-[#e6f2f2] hover:shadow-md">
+                    Masuk
+                </a>
+
+                <a href="#"
+                   class="font-['Nexa'] text-[18px] font-semibold bg-[#018790] text-white
+                          px-4 py-2 rounded-md
+                          shadow-sm transition duration-200
+                          hover:bg-[#016f77] hover:shadow-md">
+                    Daftar
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+    {{-- CONTENT --}}
+    <main class="min-h-[60vh] p-10">
+        {{ $slot }}
+    </main>
+
+    {{-- FOOTER --}}
+    <footer class="bg-[#005461] text-white py-6">
+        <div class="w-[90%] mx-auto grid grid-cols-3 gap-8">
+
+            {{-- FOOTER LEFT --}}
+            <div>
+                <div class="flex items-center gap-3 mb-3">
+                    <x-logo class="w-[40px] h-[40px]" />
+                    <span class="text-[22px] font-bold">MedStore</span>
+                </div>
+
+                <p class="mb-3">
+                    Toko obat online terpercaya yang menyediakan berbagai kebutuhan
+                    kesehatan Anda dengan layanan profesional dan terjamin.
+                </p>
+
+                <strong>Ikuti Kami</strong>
+                <div class="mt-2 space-x-3 text-[18px]">
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-x-twitter"></i>
+                </div>
+            </div>
+
+            {{-- FOOTER MIDDLE --}}
+            <div>
+                <strong>MedStore</strong>
+                <ul class="mt-3 space-y-2">
+                    <li>Tentang Kami</li>
+                    <li>Kritik dan Saran</li>
+                    <li>Kebijakan Privasi</li>
+                </ul>
+
+                <div class="bg-[#018790] p-2 mt-3 text-[13px]">
+                    Berizin resmi no izin 123/apotek/2025
+                </div>
+            </div>
+
+            {{-- FOOTER RIGHT --}}
+            <div>
+                <strong>Hubungi Kami</strong>
+                <p class="mt-2"><i class="fa fa-location-dot mr-1"></i> Jl. Setiabudi</p>
+                <p class="mt-2"><i class="fa fa-envelope mr-1"></i> support@medstore.com</p>
+                <p class="mt-2"><i class="fa fa-phone mr-1"></i> 0812-2233-4455</p>
+            </div>
+
+        </div>
+    </footer>
+
+    {{-- COPYRIGHT --}}
+    <div class="bg-[#018790] text-white text-center py-2 text-[14px]">
+        © 2025 MedStore. All rights reserved.
+    </div>
+
+</body>
+</html>

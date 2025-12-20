@@ -2,23 +2,33 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Medicine extends Model
 {
-    protected $table = 'medicines';
+    use HasFactory;
+
     protected $fillable = [
-        'Medicine_Name',
-        'Image',
-        'Price',
-        'Stock',
-        'Description',
+        'name',
+        'slug',
+        'description',
+        'image',
+        'price',
+        'stock',
         'category_id',
-        'supplier_id'
     ];
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Relasi: Obat ini ada di detail transaksi mana saja?
+     */
+    public function transactionDetails()
+    {
+        return $this->hasMany(TransactionDetail::class);
     }
 }
