@@ -15,7 +15,7 @@ class MedicineController extends Controller
     {
         $medicines = Medicine::with('category')->latest()->paginate(5);
 
-        return view('dashboard.medicines.index', [
+        return view('back-pages.obat', [
             'medicines' => $medicines
         ]);
     }
@@ -23,7 +23,7 @@ class MedicineController extends Controller
     // Create
     public function create()
     {
-        return view('dashboard.medicines.create', [
+        return view('back-pagesobat', [
             'categories' => Category::all()
         ]);
     }

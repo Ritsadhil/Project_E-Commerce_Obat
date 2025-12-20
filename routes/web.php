@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\MedicineController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('home');
+    return view('front-pages.home');
 });
 
 Route::get('/login', function () {
@@ -15,5 +16,8 @@ Route::get('/register', function () {
 });
 
 Route::get('/home', function () {
-    return view('home');
+    return view('front-pages.home');
 });
+
+Route::get('/obat', [MedicineController::class, 'index'])->name('obat.index');
+Route::get('/obat/{slug}', [MedicineController::class, 'show'])->name('obat.show');
