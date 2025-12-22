@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Medicine;
+use App\Models\Transaction;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -77,6 +78,32 @@ class DatabaseSeeder extends Seeder
             'price' => 15000,
             'stock' => 25,
             'category_id' => $catSalep->id,
+        ]);
+
+        $buyer = User::firstOrCreate(
+            ['email' => 'budi@gmail.com'],
+            [
+                'name' => 'Budi Santoso',
+                'email' => 'budi@gmail.com',
+                'password' => Hash::make('password'),
+                'role' => 'user',
+            ]
+        );
+
+        Transaction::create([
+            'user_id' => $buyer->id,
+            'transaction_date' => now(),
+            'total_price' => 45000,
+            'shipping_address' => 'Jl. Merpati No. 10, Jakarta Selatan',
+            'status' => 'dikemas',
+        ]);
+
+        Transaction::create([
+            'user_id' => $buyer->id,
+            'transaction_date' => now()->subDays(1),
+            'total_price' => 125000,
+            'shipping_address' => 'Jl. Kebon Jeruk No. 5, Jakarta Barat',
+            'status' => 'dikirim',
         ]);
     }
 }

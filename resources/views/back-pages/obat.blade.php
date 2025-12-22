@@ -2,9 +2,10 @@
 
 @section('content')
     <div class="flex gap-4 mb-8">
-        <button class="bg-[#00897b] hover:bg-[#00796b] text-white font-bold py-2 px-6 rounded-2xl shadow-md transition">
+        <a href="{{ route('obat.create') }}" 
+           class="bg-[#00897b] hover:bg-[#00796b] text-white font-bold py-2 px-6 rounded-2xl shadow-md transition inline-block text-center">
             Tambah Obat
-        </button>
+        </a>
         <button class="bg-[#00897b] hover:bg-[#00796b] text-white font-bold py-2 px-6 rounded-2xl shadow-md transition">
             Cetak laporan obat
         </button>
@@ -35,9 +36,10 @@
         </p>
     </div>
     
-    <button class="w-full bg-[#00897b] hover:bg-[#00796b] text-white font-bold py-2 rounded-lg transition shadow-sm">
-        Edit
-    </button>
+    <a href="{{ route('obat.edit', $obat->id) }}" 
+               class="w-full bg-[#00897b] hover:bg-[#00796b] text-white font-bold py-2 rounded-lg transition shadow-sm block text-center">
+                Edit
+            </a>
 </div>
 @endforeach
         </div>
