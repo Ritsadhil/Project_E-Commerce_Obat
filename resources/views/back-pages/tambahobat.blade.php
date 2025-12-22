@@ -135,4 +135,75 @@
                         <img id="imagePreview" class="hidden w-full h-full object-cover" src="" alt="Preview">
                     </div>
 
-                    <label for="image" class="bg-teal-700 hover:bg-teal-800 text-white font-bold text-base py-3 px-10
+                     <label for="gambar" class="bg-teal-700 hover:bg-teal-800 text-white font-bold text-base py-3 px-10 rounded-full cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl">
+                        Pilih gambar
+                    </label>
+                    <input 
+                        type="file" 
+                        id="gambar" 
+                        name="gambar" 
+                        accept="image/jpeg,image/png,image/jpg"
+                        onchange="previewImage(event)"
+                    >
+                  
+
+                </div>
+
+            </div>
+
+            <!-- Submit Buttons - SPACING & SIZE DIKECILKAN -->
+            <div class="flex justify-center gap-4 mt-4">
+                <button 
+                    type="submit" 
+                    class="bg-teal-700 hover:bg-teal-800 text-white font-bold text-base py-3 px-16 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                >
+                    Tambahkan
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('imagePreview');
+            const placeholder = document.getElementById('placeholderContent');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    if (placeholder) {
+                        placeholder.classList.add('hidden');
+                    }
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        document.getElementById('obatForm').addEventListener('submit', function(e) {
+            const namaObat = document.getElementById('nama_obat').value;
+            const harga = document.getElementById('harga').value;
+            const stok = document.getElementById('stok').value;
+
+            if (!namaObat || !harga || !stok) {
+                e.preventDefault();
+                alert('Mohon lengkapi semua field yang wajib diisi!');
+                return false;
+            }
+
+            const hargaNum = parseFloat(harga);
+            const stokNum = parseFloat(stok);
+
+            if (isNaN(hargaNum) || hargaNum < 0 || isNaN(stokNum) || stokNum < 0) {
+                e.preventDefault();
+                alert('Harga dan stok harus berupa angka positif!');
+                return false;
+            }
+        });
+    </script>
+    </body>
+</html>
