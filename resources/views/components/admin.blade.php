@@ -63,8 +63,8 @@
     Obat
 </a>
 
-                <a href="/back-pages/pesanan" 
-                   class="{{ request()->is('back-pages/pesanan*') ? 'bg-[#00897b] text-white shadow-md' : 'text-black hover:bg-gray-200' }} 
+                <a href="{{ route('pesanan.index') }}" 
+                   class="{{ request()->routeIs('pesanan.index') ? 'bg-[#00897b] text-white shadow-md' : 'text-black hover:bg-gray-200' }} 
                           font-bold text-lg py-3 px-6 rounded-full block text-center transition duration-200">
                     Pesanan
                 </a>

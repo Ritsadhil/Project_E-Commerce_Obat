@@ -14,7 +14,7 @@ class Transaction extends Model
         'transaction_date',
         'total_price',
         'shipping_address',
-        'status', // 'unpaid', 'paid', 'shipping', 'completed', 'cancelled'
+        'status', //'packing', 'shipping', 'completed', 'cancelled'
     ];
 
     /**
