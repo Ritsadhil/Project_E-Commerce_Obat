@@ -1,11 +1,13 @@
 <?php
 
+use App\Models\Medicine;
 use App\Http\Controllers\MedicineController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () {
-    return view('front-pages.home');
+    $medicines = Medicine::latest()->get();
+    return view('front-pages.home', compact('medicines'));
 });
 
 Route::get('/login', function () {
