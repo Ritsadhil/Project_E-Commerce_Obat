@@ -54,7 +54,7 @@
         </div>
         @endif
 
-        <form action="{{ route('obat.update', $obat->id) }}" method="POST" enctype="multipart/form-data" id="obatForm" class="flex-1 flex flex-col overflow-hidden">
+        <form action="{{ route('obat.update', $medicine->id) }}" method="POST" enctype="multipart/form-data" id="obatForm" class="flex-1 flex flex-col overflow-hidden">
             @csrf
             @method('PUT') <div class="grid grid-cols-2 gap-6 flex-1 overflow-hidden">
                 
@@ -66,7 +66,7 @@
                             type="text" 
                             name="name" 
                             id="name"
-                            value="{{ $obat->name }}"
+                            value="{{ $medicine->name }}"
                             class="input-bottom-border w-full text-white text-sm py-2 px-0"
                             required
                         >
@@ -82,7 +82,7 @@
                         >
                             <option value="" disabled>Pilih Kategori</option>
                             @foreach(App\Models\Category::all() as $cat)
-                                <option value="{{ $cat->id }}" {{ $obat->category_id == $cat->id ? 'selected' : '' }}>
+                                <option value="{{ $cat->id }}" {{ $medicine->category_id == $cat->id ? 'selected' : '' }}>
                                     {{ $cat->name }}
                                 </option>
                             @endforeach
@@ -95,7 +95,7 @@
                             type="number" 
                             name="price" 
                             id="price"
-                            value="{{ $obat->price }}"
+                            value="{{ $medicine->price }}"
                             class="input-bottom-border w-full text-white text-sm py-2 px-0"
                             required
                         >
@@ -107,7 +107,7 @@
                             type="number" 
                             name="stock" 
                             id="stock"
-                            value="{{ $obat->stock }}"
+                            value="{{ $medicine->stock }}"
                             class="input-bottom-border w-full text-white text-sm py-2 px-0"
                             required
                         >
@@ -120,7 +120,7 @@
                             id="description"
                             class="input-bottom-border w-full text-white text-sm py-2 px-3 flex-1"
                             rows="3"
-                        >{{ $obat->description }}</textarea>
+                        >{{ $medicine->description }}</textarea>
                     </div>
 
                 </div>
@@ -128,8 +128,8 @@
                 <div class="flex flex-col items-center justify-center">
                     
                     <div class="image-placeholder rounded-2xl w-64 h-64 flex items-center justify-center mb-4 overflow-hidden" id="imagePreviewBox">
-                        @if($obat->image)
-                        <img id="imagePreview" class="w-full h-full object-cover" src="{{ asset('img/' . $obat->image) }}" alt="">
+                        @if($medicine->image)
+                        <img id="imagePreview" class="w-full h-full object-cover" src="{{ asset('img/' . $medicine->image) }}" alt="">
                         @else
                         <div id="placeholderContent" class="text-center">
                              <svg class="w-20 h-20 mx-auto text-gray-400 mb-2" fill="currentColor" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
