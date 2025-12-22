@@ -10,29 +10,27 @@ use Illuminate\Support\Facades\Storage;
 
 class MedicineController extends Controller
 {
-    // Read (Halaman Depan Obat)
+    // READ
     public function index()
     {
         $medicines = Medicine::with('category')->latest()->paginate(5);
-
-        return view('back-pages.obat', [
-            'medicines' => $medicines
-        ]);
+        return view('back-pages.obat', ['medicines' => $medicines]);
     }
 
-    // Create (Halaman Tambah)
+    // CREATE (Tampilkan Form)
     public function create()
     {
         return view('back-pages.tambahobat', [
-            'obat' => new Medicine(), // Kirim objek kosong agar form tidak error
-            'categories' => Category::all() // Kirim data kategori untuk dropdown
+            'medicine' => new Medicine(),
+            'categories' => Category::all()
         ]);
     }
 
-    // Store (Proses Simpan Data Baru)
+    // STORE (Simpan Data Baru)
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        // Validasi sesuai name di form
+        $request->validate([
             'name'        => 'required|max:255',
             'category_id' => 'required',
             'price'       => 'required|numeric',
@@ -41,36 +39,32 @@ class MedicineController extends Controller
             'image'       => 'required|image|mimes:jpeg,png,jpg|max:4096'
         ]);
 
-        // Buat Slug
-        $validatedData['slug'] = Str::slug($request->name);
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->name);
 
-        // Upload Gambar
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('img'), $fileName);
-
-            $validatedData['image'] = $fileName;
+            $data['image'] = $fileName;
         }
 
-        Medicine::create($validatedData);
+        Medicine::create($data);
 
-        // Redirect ke route obat.index
-        return redirect()->route('obat.index')->with('success', 'Data obat berhasil ditambahkan!');
+        return redirect()->route('obat.index')->with('success', 'Obat berhasil ditambahkan!');
     }
 
-    // Edit (Halaman Edit)
+    // EDIT (Tampilkan Form Edit)
     public function edit($id)
     {
-        $obat = Medicine::findOrFail($id);
-
+        $medicine = Medicine::findOrFail($id);
         return view('back-pages.editobat', [
-            'obat' => $obat,
+            'medicine' => $medicine,
             'categories' => Category::all()
         ]);
     }
 
-    // Update (Proses Simpan Perubahan)
+    // UPDATE (Simpan Perubahan)
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -82,50 +76,44 @@ class MedicineController extends Controller
             'category_id' => 'required|exists:categories,id',
         ]);
 
-        $obat = Medicine::findOrFail($id);
+        $medicine = Medicine::findOrFail($id);
 
-        $obat->name = $request->name;
-        $obat->price = $request->price;
-        $obat->stock = $request->stock;
-        $obat->description = $request->description;
-        $obat->category_id = $request->category_id;
-        $obat->slug = Str::slug($request->name);
+        $medicine->name = $request->name;
+        $medicine->price = $request->price;
+        $medicine->stock = $request->stock;
+        $medicine->description = $request->description;
+        $medicine->category_id = $request->category_id;
+        $medicine->slug = Str::slug($request->name);
 
-        // Cek Gambar Baru
         if ($request->hasFile('image')) {
             // Hapus gambar lama
-            $oldImagePath = public_path('img/' . $obat->image);
-            if (file_exists($oldImagePath) && $obat->image) {
+            $oldImagePath = public_path('img/' . $medicine->image);
+            if (file_exists($oldImagePath) && $medicine->image) {
                 unlink($oldImagePath);
             }
 
-            // Simpan baru
+            // Simpan gambar baru
             $file = $request->file('image');
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('img'), $fileName);
 
-            $obat->image = $fileName;
+            $medicine->image = $fileName;
         }
 
-        $obat->save();
+        $medicine->save();
 
         return redirect()->route('obat.index')->with('success', 'Data obat berhasil diperbarui!');
     }
 
-    // Destroy (Hapus Data)
+    // DESTROY (Hapus)
     public function destroy($id)
     {
         $medicine = Medicine::findOrFail($id);
-
         if ($medicine->image) {
-            $imagePath = public_path('img/' . $medicine->image);
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
-            }
+            $path = public_path('img/' . $medicine->image);
+            if (file_exists($path)) unlink($path);
         }
-
         $medicine->delete();
-
-        return redirect()->route('obat.index')->with('success', 'Data obat berhasil dihapus!');
+        return redirect()->route('obat.index')->with('success', 'Obat dihapus');
     }
 }
