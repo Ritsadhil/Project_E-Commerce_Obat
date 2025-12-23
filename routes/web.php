@@ -11,7 +11,7 @@ use App\Http\Controllers\Auth\LogoutController;
 Route::get('/', function () {
     $medicines = Medicine::latest()->get();
     return view('front-pages.home', compact('medicines'));
-});
+})->name('home');
 
 Route::get('/register', [RegisterController::class, 'show'])->name('register.show');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
