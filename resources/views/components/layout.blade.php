@@ -48,22 +48,45 @@
                 <i class="fa fa-cart-shopping text-[22px] mr-5"></i>
                 <div class="h-7 w-px bg-white/50 mr-5"></div>
 
-                <a href="#"
-                   class="font-['Nexa'] text-[18px] font-semibold bg-white text-[#018790]
-                          border border-[#018790] px-4 py-2 rounded-md mr-3
-                          shadow-sm transition duration-200
-                          hover:bg-[#e6f2f2] hover:shadow-md">
-                    Masuk
-                </a>
+                @auth
+                    <div class="flex items-center gap-4">
+                        <div class="text-right leading-tight hidden md:block">
+                            <div class="font-bold text-[15px] truncate max-w-[150px] text-white">{{ Auth::user()->name }}</div>
+                        </div>
 
-                <a href="#"
-                   class="font-['Nexa'] text-[18px] font-semibold bg-[#018790] text-white
-                          px-4 py-2 rounded-md
-                          shadow-sm transition duration-200
-                          hover:bg-[#016f77] hover:shadow-md">
-                    Daftar
-                </a>
-            </div>
+                        <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white border border-white/30">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        
+                        <form action="{{ route('logout') }}" method="POST" class="m-0">
+                            @csrf
+                            <button type="submit" 
+                                class="bg-red-500/80 hover:bg-red-600 text-white px-3 py-2 rounded-lg font-bold text-sm transition shadow-sm flex items-center gap-2 border border-red-400"
+                                title="Keluar">
+                                <i class="fa fa-sign-out-alt"></i> 
+                            </button>
+                        </form>
+                    </div>
+
+                @else
+                    {{-- GUEST --}}
+                    
+                    <a href="{{ route('login.show') }}"
+                       class="font-['Nexa'] text-[16px] md:text-[18px] font-semibold bg-white text-[#018790]
+                              border border-[#018790] px-4 py-2 rounded-md mr-3
+                              shadow-sm transition duration-200
+                              hover:bg-[#e6f2f2] hover:shadow-md">
+                        Masuk
+                    </a>
+
+                    <a href="{{ route('register.show') }}"
+                       class="font-['Nexa'] text-[16px] md:text-[18px] font-semibold bg-[#018790] text-white
+                              border border-white/30 px-4 py-2 rounded-md
+                              shadow-sm transition duration-200
+                              hover:bg-[#016f77] hover:shadow-md">
+                        Daftar
+                    </a>
+                @endauth
 
         </div>
     </nav>
