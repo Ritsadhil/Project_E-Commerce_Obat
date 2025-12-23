@@ -14,3 +14,17 @@
 
     --font-judul: "Poppins", sans-serif;
 }
+
+@font-face {
+    font-family: 'Nexa';
+    src: url('/fonts/Nexa-Bold.woff2') format('woff2');
+    font-weight: bold;
+}
+
+.font-nexa {
+    font-family: 'Nexa', Arial, sans-serif;
+}
+
+.font-arial {
+    font-family: Arial, sans-serif;
+}
