@@ -22,7 +22,12 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->route('home');
+            $user = Auth::user();
+            if ($user->role === 'admin') {
+                return redirect()->intended('/dashboard/obat');
+            } else {
+                return redirect()->intended('/');
+            }
         }
 
         return back()->withErrors([
