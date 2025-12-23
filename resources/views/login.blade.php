@@ -18,7 +18,7 @@
             <h2 class="text-2xl font-bold text-white tracking-widest font-judul">LOGIN</h2>
         </div>
 
-        <form action="#" method="POST" class="space-y-6">
+        <form action="{{ route('login') }}" method="POST" class="space-y-6">
             @csrf
 
             <div class="relative">

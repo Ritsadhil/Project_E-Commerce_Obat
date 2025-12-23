@@ -48,7 +48,7 @@
                 <i class="fa fa-cart-shopping text-[22px] mr-5"></i>
                 <div class="h-7 w-px bg-white/50 mr-5"></div>
 
-                <a href="#"
+                <a href="/login"
                    class="font-['Nexa'] text-[18px] font-semibold bg-white text-[#018790]
                           border border-[#018790] px-4 py-2 rounded-md mr-3
                           shadow-sm transition duration-200
@@ -56,7 +56,7 @@
                     Masuk
                 </a>
 
-                <a href="#"
+                <a href="/register"
                    class="font-['Nexa'] text-[18px] font-semibold bg-[#018790] text-white
                           px-4 py-2 rounded-md
                           shadow-sm transition duration-200
