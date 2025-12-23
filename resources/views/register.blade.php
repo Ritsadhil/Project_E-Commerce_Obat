@@ -56,7 +56,7 @@
             <div class="pt-6">
                 <button type="submit" 
                         class="w-full bg-[#018790] hover:bg-[#00796b] text-white font-bold py-3 px-4 rounded-full shadow-lg transition hover:scale-105 duration-300">
-                    LOGIN
+                    REGISTER
                 </button>
             </div>
         </form>

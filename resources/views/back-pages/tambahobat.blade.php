@@ -141,7 +141,7 @@
                     <input 
                         type="file" 
                         id="gambar" 
-                        name="gambar" 
+                        name="image" 
                         accept="image/jpeg,image/png,image/jpg"
                         onchange="previewImage(event)"
                     >
@@ -185,9 +185,9 @@
         }
 
         document.getElementById('obatForm').addEventListener('submit', function(e) {
-            const namaObat = document.getElementById('nama_obat').value;
-            const harga = document.getElementById('harga').value;
-            const stok = document.getElementById('stok').value;
+            const namaObat = document.getElementById('name').value;
+            const harga = document.getElementById('price').value;
+            const stok = document.getElementById('stock').value;
 
             if (!namaObat || !harga || !stok) {
                 e.preventDefault();
