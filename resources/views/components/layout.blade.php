@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>{{ $title ?? 'MedStore' }}</title>
 
+    {{-- JQuery --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
     {{-- Font Nexa --}}
     <link href="https://fonts.cdnfonts.com/css/nexa-bold" rel="stylesheet">
 
@@ -12,6 +15,9 @@
 
     {{-- Tailwind --}}
     @vite('resources/css/app.css')
+
+    {{-- Java Script --}}
+    @vite('resources/js/app.js')
 </head>
 
 <body class="font-sans">
@@ -41,8 +47,18 @@
             </div>
 
             {{-- SEARCH --}}
-            <input type="text" placeholder="Cari obat..." class="w-[250px] px-3 py-2 bg-white border border-[#018790] rounded-[8px] shadow-sm outline-none focus:ring-1 focus:ring-[#018790]">
-
+            <div class="relative ml-4">
+                                <form action="/" method="GET" onsubmit="return false;">
+                                    <input 
+                                        type="text" 
+                                        id="keyword"
+                                        name="search"
+                                        class="rounded-md bg-gray-700 text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white"
+                                        placeholder="Cari obat..."
+                                        autocomplete="off"
+                                    >
+                                </form>
+                            </div>
             {{-- NAV RIGHT --}}
             <div class="flex items-center text-white">
                 <i class="fa fa-cart-shopping text-[22px] mr-5"></i>

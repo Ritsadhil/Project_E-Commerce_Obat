@@ -7,11 +7,9 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    $medicines = Medicine::latest()->get();
-    return view('front-pages.home', compact('medicines'));
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/register', [RegisterController::class, 'show'])->name('register.show');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
@@ -20,10 +18,6 @@ Route::get('/login', [LoginController::class, 'show'])->name('login.show');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
-
-Route::get('/home', function () {
-    return view('front-pages.home');
-});
 
 Route::get('/dashboard/obat', [MedicineController::class, 'index'])->name('obat.index');
 Route::get('/dashboard/obat/{slug}', [MedicineController::class, 'show'])->name('obat.show');
