@@ -30,36 +30,37 @@
             Produk
         </h2>
 
+        <div id="medicine-container">
+        @fragment('list-obat')
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-            @forelse($medicines as $medicine)
-            <div class="bg-white rounded-xl p-5 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 border border-gray-100 flex flex-col justify-between">
-                
-                <div class="h-40 flex items-center justify-center mb-4 overflow-hidden rounded-lg">
-                    <img src="{{ $medicine->image ? asset('img/' . $medicine->image) : asset('img/default-obat.jpg') }}" 
-                         alt="{{ $medicine->name }}" 
-                         class="h-full w-full object-contain">
+                @forelse($medicines as $medicine)
+                <div class="bg-white rounded-xl p-5 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 border border-gray-100 flex flex-col justify-between">
+                    <div class="h-40 flex items-center justify-center mb-4 overflow-hidden rounded-lg">
+                        <img src="{{ $medicine->image ? asset('img/' . $medicine->image) : asset('img/default-obat.jpg') }}" class="h-full w-full object-contain">
+                    </div>
+                    <div>
+                        <h3 class="text-lg my-2 font-bold text-gray-800 line-clamp-2 min-h-[3.5rem] flex items-center justify-center">
+                            {{ $medicine->name }}
+                        </h3>
+                        <p class="text-[#018790] font-bold mb-4 text-xl">
+                            Rp {{ number_format($medicine->price, 0, ',', '.') }}
+                        </p>
+                         <a href="{{ route('front.product.show', $medicine->slug) }}" class="block w-full py-2 bg-[#018790] hover:bg-[#006a70] text-white rounded-lg font-bold transition">Detail</a>
+                    </div>
                 </div>
-
-                <div>
-                    <h3 class="text-lg my-2 font-bold text-gray-800 line-clamp-2 min-h-[3.5rem] flex items-center justify-center">
-                        {{ $medicine->name }}
-                    </h3>
-                    <p class="text-[#018790] font-bold mb-4 text-xl">
-                        Rp {{ number_format($medicine->price, 0, ',', '.') }}
-                    </p>
-                    
-                    <button class="w-full py-2 bg-[#018790] hover:bg-[#006a70] text-white rounded-lg font-bold transition">
-                        + Keranjang
-                    </button>
+                @empty
+                <div class="col-span-4 text-center py-10 text-gray-500">
+                    <p>Belum ada produk yang tersedia saat ini.</p>
                 </div>
+                @endforelse
             </div>
-            @empty
-            <div class="col-span-4 text-center py-10 text-gray-500">
-                <p>Belum ada produk yang tersedia saat ini.</p>
-            </div>
-            @endforelse
 
+            {{-- Pagination --}}
+            <div class="mt-8">
+                {{ $medicines->links() }}
+            </div>
+
+        @endfragment
         </div>
     </div>
 </x-layout>
