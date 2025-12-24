@@ -45,9 +45,7 @@
                         <p class="text-[#018790] font-bold mb-4 text-xl">
                             Rp {{ number_format($medicine->price, 0, ',', '.') }}
                         </p>
-                         <a href="{{ route('obat.show', $medicine->slug ?? '#') }}" class="block w-full py-2 bg-[#018790] hover:bg-[#006a70] text-white rounded-lg font-bold transition">
-                            Detail
-                        </a>
+                         <a href="{{ route('front.product.show', $medicine->slug) }}" class="block w-full py-2 bg-[#018790] hover:bg-[#006a70] text-white rounded-lg font-bold transition">Detail</a>
                     </div>
                 </div>
                 @empty
