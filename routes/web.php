@@ -22,6 +22,7 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 Route::get('/dashboard/obat', [MedicineController::class, 'index'])->name('obat.index');
+Route::get('/dashboard/obat/pdf', [MedicineController::class, 'pdf'])->name('obat.pdf');
 Route::get('/dashboard/obat/{slug}', [MedicineController::class, 'show'])->name('obat.show');
 Route::get('/dashboard/pesanan', [TransactionController::class, 'index'])->name('pesanan.index');
 

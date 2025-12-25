@@ -61,10 +61,11 @@
                             </div>
             {{-- NAV RIGHT --}}
             <div class="flex items-center text-white">
-                <i class="fa fa-cart-shopping text-[22px] mr-5"></i>
-                <div class="h-7 w-px bg-white/50 mr-5"></div>
+               
 
                 @auth
+                 <i class="fa fa-cart-shopping text-[22px] mr-5"></i>
+                <div class="h-7 w-px bg-white/50 mr-5"></div>
                     <div class="flex items-center gap-4">
                         <div class="text-right leading-tight hidden md:block">
                             <div class="font-bold text-[15px] truncate max-w-[150px] text-white">{{ Auth::user()->name }}</div>

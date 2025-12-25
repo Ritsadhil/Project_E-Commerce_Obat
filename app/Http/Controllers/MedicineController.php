@@ -116,4 +116,14 @@ class MedicineController extends Controller
         $medicine->delete();
         return redirect()->route('obat.index')->with('success', 'Obat dihapus');
     }
+
+    // PDF reporting
+    public function pdf()
+    {
+        $medicines = Medicine::with('category')->get();
+        $mpdf = new \Mpdf\Mpdf();
+        $html = view('back-pages.pdf', compact('medicines'))->render();
+        $mpdf->WriteHTML($html);
+        $mpdf->Output('laporan-obat.pdf', 'I');
+    }
 }

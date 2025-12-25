@@ -6,9 +6,10 @@
            class="bg-[#00897b] hover:bg-[#00796b] text-white font-bold py-2 px-6 rounded-2xl shadow-md transition inline-block text-center">
             Tambah Obat
         </a>
-        <button class="bg-[#00897b] hover:bg-[#00796b] text-white font-bold py-2 px-6 rounded-2xl shadow-md transition">
-            Cetak laporan obat
-        </button>
+        <a href="{{ route('obat.pdf') }}" target="_blank" 
+         class="bg-[#00897b] hover:bg-[#00796b] text-white font-bold py-2 px-6 rounded-2xl shadow-md transition inline-block text-center cursor-pointer">
+         Cetak laporan obat
+        </a>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
