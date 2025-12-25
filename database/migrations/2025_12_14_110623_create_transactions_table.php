@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('transaction_date');
             $table->integer('total_price');
             $table->text('shipping_address');
-            $table->enum('status', ['dikemas', 'dikirim', 'diterima'])->default('dikemas');
+            $table->enum('status', ['dikemas', 'dikirim', 'diterima', 'dibatalkan'])->default('dikemas');
             $table->timestamps();
         });
     }

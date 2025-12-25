@@ -29,7 +29,29 @@
         <h2 class="text-2xl font-bold text-[#005461] mb-6 border-b-2 border-[#005461] inline-block pb-1">
             Produk
         </h2>
-
+        <div class="flex flex-wrap gap-3 mb-8 overflow-x-auto pb-2">
+            
+            <a href="{{ route('home') }}" 
+               class="px-5 py-2 rounded-full font-bold text-sm transition shadow-sm border
+               {{ !request('category') || request('category') == 'all' 
+                   ? 'bg-[#005461] text-white border-[#005461]' 
+                   : 'bg-white text-[#005461] border-gray-200 hover:border-[#005461] hover:bg-gray-50' 
+               }}">
+               Semua
+            </a>
+        
+            @foreach($categories as $cat)
+                <a href="{{ route('home', ['category' => $cat->id]) }}" 
+                   class="px-5 py-2 rounded-full font-bold text-sm transition shadow-sm border whitespace-nowrap
+                   {{ request('category') == $cat->id 
+                       ? 'bg-[#005461] text-white border-[#005461]' 
+                       : 'bg-white text-[#005461] border-gray-200 hover:border-[#005461] hover:bg-gray-50' 
+                   }}">
+                   {{ $cat->name }}
+                </a>
+            @endforeach
+            
+        </div>
         <div id="medicine-container">
         @fragment('list-obat')
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

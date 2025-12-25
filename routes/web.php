@@ -21,13 +21,19 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
-Route::get('/dashboard/obat', [MedicineController::class, 'index'])->name('obat.index');
-Route::get('/dashboard/obat/pdf', [MedicineController::class, 'pdf'])->name('obat.pdf');
-Route::get('/dashboard/obat/{slug}', [MedicineController::class, 'show'])->name('obat.show');
-Route::get('/dashboard/pesanan', [TransactionController::class, 'index'])->name('pesanan.index');
+Route::middleware(['auth', 'is_admin'])->group(function () {
+    Route::get('/dashboard', function () {
+        return redirect()->route('obat.index');
+    });
+    Route::get('/dashboard/obat', [MedicineController::class, 'index'])->name('obat.index');
+    Route::get('/dashboard/obat/pdf', [MedicineController::class, 'pdf'])->name('obat.pdf');
+    Route::get('/dashboard/obat/{slug}', [MedicineController::class, 'show'])->name('obat.show');
+    Route::get('/dashboard/pesanan', [TransactionController::class, 'index'])->name('pesanan.index');
+    Route::patch('/dashboard/pesanan/{id}/update-status', [TransactionController::class, 'updateStatus'])->name('pesanan.updateStatus');
 
-
-Route::get('/obat/create', [MedicineController::class, 'create'])->name('obat.create');
-Route::post('/obat', [MedicineController::class, 'store'])->name('obat.store');
-Route::get('/obat/{id}/edit', [MedicineController::class, 'edit'])->name('obat.edit');
-Route::put('/obat/{id}', [MedicineController::class, 'update'])->name('obat.update');
+    Route::get('/obat/create', [MedicineController::class, 'create'])->name('obat.create');
+    Route::post('/obat', [MedicineController::class, 'store'])->name('obat.store');
+    Route::get('/obat/{id}/edit', [MedicineController::class, 'edit'])->name('obat.edit');
+    Route::put('/obat/{id}', [MedicineController::class, 'update'])->name('obat.update');
+    Route::delete('/obat/{id}', [MedicineController::class, 'destroy'])->name('obat.destroy');
+});

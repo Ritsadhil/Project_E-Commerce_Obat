@@ -13,6 +13,7 @@ class MedicineController extends Controller
     // READ
     public function index()
     {
+
         $medicines = Medicine::with('category')->latest()->paginate(5);
         return view('back-pages.obat', ['medicines' => $medicines]);
     }

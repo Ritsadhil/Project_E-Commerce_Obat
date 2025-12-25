@@ -9,10 +9,20 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        // Ambil transaksi + data user pemiliknya
-        $transactions = Transaction::with('user')->latest()->get();
-
-        // Pastikan path view-nya benar: 'back-pages.pesanan'
+        $transactions = Transaction::with('user', 'details.medicine')->latest()->get();
         return view('back-pages.pesanan', compact('transactions'));
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:dikemas,dikirim,diterima,dibatalkan'
+        ]);
+
+        $transaction = Transaction::findOrFail($id);
+        $transaction->status = $request->status;
+        $transaction->save();
+
+        return redirect()->back()->with('success', 'Status pesanan berhasil diperbarui!');
     }
 }
