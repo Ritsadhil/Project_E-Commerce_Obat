@@ -36,6 +36,8 @@ class MedicineController extends Controller
             'price'       => 'required|numeric',
             'stock'       => 'required|numeric',
             'description' => 'required',
+            'dosis'       => 'required',
+            'peringatan'  => 'required',
             'image'       => 'required|image|mimes:jpeg,png,jpg|max:4096'
         ]);
 
@@ -72,6 +74,8 @@ class MedicineController extends Controller
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
             'description' => 'nullable|string',
+            'dosis'       => 'nullable|string',
+            'peringatan'  => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'category_id' => 'required|exists:categories,id',
         ]);
@@ -82,6 +86,8 @@ class MedicineController extends Controller
         $medicine->price = $request->price;
         $medicine->stock = $request->stock;
         $medicine->description = $request->description;
+        $medicine->dosis = $request->dosis;
+        $medicine->peringatan = $request->peringatan;
         $medicine->category_id = $request->category_id;
         $medicine->slug = Str::slug($request->name);
 
