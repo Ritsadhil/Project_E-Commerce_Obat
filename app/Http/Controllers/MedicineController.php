@@ -10,113 +10,110 @@ use Illuminate\Support\Facades\Storage;
 
 class MedicineController extends Controller
 {
-    // Read
+    // READ
     public function index()
     {
         $medicines = Medicine::with('category')->latest()->paginate(5);
-
-        return view('back-pages.obat', [
-            'medicines' => $medicines
-        ]);
+        return view('back-pages.obat', ['medicines' => $medicines]);
     }
 
-    // Create
+    // CREATE (Tampilkan Form)
     public function create()
     {
-        return view('back-pagesobat', [
+        return view('back-pages.tambahobat', [
+            'medicine' => new Medicine(),
             'categories' => Category::all()
         ]);
     }
 
-    // Proses data dari form Create
+    // STORE (Simpan Data Baru)
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        // Validasi sesuai name di form
+        $request->validate([
             'name'        => 'required|max:255',
             'category_id' => 'required',
             'price'       => 'required|numeric',
             'stock'       => 'required|numeric',
             'description' => 'required',
             'image'       => 'required|image|mimes:jpeg,png,jpg|max:4096'
-        ], [
-            'image.required' => 'Gambar obat wajib diupload.',
-            'image.image'    => 'File yang diupload harus berupa gambar.',
-            'image.mimes'    => 'Format gambar harus JPEG, PNG, atau JPG.',
-            'image.max'      => 'Ukuran gambar maksimal 4MB.',
         ]);
 
-        $validatedData['slug'] = Str::slug($request->name);
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->name);
 
-        if ($request->file('image')) {
-            $validatedData['image'] = $request->file('image')->store('medicine-images');
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('img'), $fileName);
+            $data['image'] = $fileName;
         }
 
-        Medicine::create($validatedData);
+        Medicine::create($data);
 
-        return redirect('/dashboard/medicines')->with('success', 'Data obat berhasil ditambahkan!');
+        return redirect()->route('obat.index')->with('success', 'Obat berhasil ditambahkan!');
     }
 
-    // melihat detail medicine
-    public function show(Medicine $medicine)
+    // EDIT (Tampilkan Form Edit)
+    public function edit($id)
     {
-        return view('dashboard.medicines.show', [
-            'medicine' => $medicine
-        ]);
-    }
-
-    // edit (form edit)
-    public function edit(Medicine $medicine)
-    {
-        return view('dashboard.medicines.edit', [
+        $medicine = Medicine::findOrFail($id);
+        return view('back-pages.editobat', [
             'medicine' => $medicine,
             'categories' => Category::all()
         ]);
     }
 
-    // update (proses data dari form edit)
-    public function update(Request $request, Medicine $medicine)
+    // UPDATE (Simpan Perubahan)
+    public function update(Request $request, $id)
     {
-        $rules = [
-            'name'        => 'required|max:255',
-            'category_id' => 'required',
-            'price'       => 'required|numeric',
-            'stock'       => 'required|numeric',
-            'description' => 'required',
-            'image'       => 'nullable|image|mimes:jpeg,png,jpg|max:4096'
-        ];
-
-        $validatedData = $request->validate($rules, [
-            'image.image'    => 'File yang diupload harus berupa gambar.',
-            'image.mimes'    => 'Format gambar harus JPEG, PNG, atau JPG.',
-            'image.max'      => 'Ukuran gambar maksimal 4MB.',
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
-        if ($request->name != $medicine->name) {
-            $validatedData['slug'] = Str::slug($request->name);
-        }
+        $medicine = Medicine::findOrFail($id);
 
-        if ($request->file('image')) {
-            if ($medicine->image) {
-                Storage::delete($medicine->image);
+        $medicine->name = $request->name;
+        $medicine->price = $request->price;
+        $medicine->stock = $request->stock;
+        $medicine->description = $request->description;
+        $medicine->category_id = $request->category_id;
+        $medicine->slug = Str::slug($request->name);
+
+        if ($request->hasFile('image')) {
+            // Hapus gambar lama
+            $oldImagePath = public_path('img/' . $medicine->image);
+            if (file_exists($oldImagePath) && $medicine->image) {
+                unlink($oldImagePath);
             }
-            $validatedData['image'] = $request->file('image')->store('medicine-images');
+
+            // Simpan gambar baru
+            $file = $request->file('image');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('img'), $fileName);
+
+            $medicine->image = $fileName;
         }
 
-        Medicine::where('id', $medicine->id)->update($validatedData);
+        $medicine->save();
 
-        return redirect('/dashboard/medicines')->with('success', 'Data obat berhasil diperbarui!');
+        return redirect()->route('obat.index')->with('success', 'Data obat berhasil diperbarui!');
     }
 
-    // delete
-    public function destroy(Medicine $medicine)
+    // DESTROY (Hapus)
+    public function destroy($id)
     {
+        $medicine = Medicine::findOrFail($id);
         if ($medicine->image) {
-            // hapus gambar di storage
-            Storage::delete($medicine->image);
+            $path = public_path('img/' . $medicine->image);
+            if (file_exists($path)) unlink($path);
         }
-
-        Medicine::destroy($medicine->id);
-
-        return redirect('/dashboard/medicines')->with('success', 'Data obat berhasil dihapus!');
+        $medicine->delete();
+        return redirect()->route('obat.index')->with('success', 'Obat dihapus');
     }
 }

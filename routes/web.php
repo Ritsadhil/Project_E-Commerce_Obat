@@ -1,12 +1,30 @@
 <?php
 
+use App\Models\Medicine;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\MedicineController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () {
+    $medicines = Medicine::latest()->get();
+    return view('front-pages.home', compact('medicines'));
+});
+
+Route::get('/login', function () {
+    return view('login');
+});
+
+Route::get('/register', function () {
+    return view('register');
+});
+
+Route::get('/home', function () {
+    return view('front-pages.home');
+});
     return view('front-pages.home');
 })->name('front-pages.home');
 
@@ -20,6 +38,15 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
+Route::get('/dashboard/obat', [MedicineController::class, 'index'])->name('obat.index');
+Route::get('/dashboard/obat/{slug}', [MedicineController::class, 'show'])->name('obat.show');
+Route::get('/dashboard/pesanan', [TransactionController::class, 'index'])->name('pesanan.index');
+
+
+Route::get('/obat/create', [MedicineController::class, 'create'])->name('obat.create');
+Route::post('/obat', [MedicineController::class, 'store'])->name('obat.store');
+Route::get('/obat/{id}/edit', [MedicineController::class, 'edit'])->name('obat.edit');
+Route::put('/obat/{id}', [MedicineController::class, 'update'])->name('obat.update');
 Route::get('/obat', [MedicineController::class, 'index'])->name('obat.index');
 Route::get('/obat/{slug}', [MedicineController::class, 'show'])->name('obat.show');
 Route::get('/search', [MedicineController::class, 'search'])->name('obat.search');

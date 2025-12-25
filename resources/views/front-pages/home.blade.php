@@ -1,155 +1,65 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MedStore</title>
+<x-layout>
+    <x-slot:title>
+        Home - MedStore
+    </x-slot:title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-        }
-
-        /* ================= HERO ================= */
-        .hero {
-            width: 100%;
-            background: #fff;
-            padding: 50px 40px;
-            border-radius: 0 0 20px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .hero-text {
-            width: 50%;
-        }
-
-        .hero-text h1 {
-            font-size: 44px;
-            margin: 0;
-            line-height: 1.2;
-        }
-
-        .hero-text p {
-            margin: 20px 0;
-            font-size: 16px;
-            color: #444;
-        }
-
-        .btn-primary {
-            background: #166b73;
-            color: #fff;
-            padding: 12px 20px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .hero img {
-            width: 330px;
-            border-radius: 15px;
-        }
-
-        /* ================= PRODUCT SECTION ================= */
-        .product-section {
-            display: flex;
-            gap: 25px;
-            padding: 40px;
-        }
-
-        .product-card {
-            background: #fff;
-            border-radius: 15px;
-            padding: 20px;
-            width: 25%;
-            text-align: center;
-            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .product-card img {
-            width: 80%;
-        }
-
-        .product-card h3 {
-            font-size: 18px;
-            margin: 15px 0 5px;
-        }
-
-        .product-card p {
-            color: #333;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .product-card button {
-            padding: 10px 18px;
-            width: 80%;
-            background: #166b73;
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .product-card button:hover {
-            opacity: 0.9;
-        }
-    </style>
-</head>
-
-<body>
-    <!-- NAVBAR -->
-    <x-layout>
-    <x-slot:title>Home</x-slot:title>
- 
-
-    <!-- HERO -->
-    <div class="hero">
-        <div class="hero-text">
-            <h1>Your trusted<br>online pharmacy.</h1>
-            <p>Temukan obat dan kebutuhan kesehatan lengkap dengan harga terbaik</p>
-            <a href="#" class="btn-primary">Belanja Sekarang</a>
+    <div class="w-full bg-gradient-to-r from-white to-[#018790] px-10 py-12 rounded-3xl flex justify-between items-center mx-auto shadow-md mb-10 relative overflow-hidden">
+        <div class="w-1/2 z-10">
+            <h1 class="text-5xl m-0 leading-tight font-bold text-gray-800 font-sans">
+                Your trusted<br>
+                <span class="text-[#005461]">online pharmacy.</span>
+            </h1>
+            <p class="my-5 text-lg text-gray-600 font-sans">
+                Temukan obat dan kebutuhan kesehatan lengkap dengan harga terbaik dan terjamin asli.
+            </p>
+            <a href="#" class="bg-[#005461] hover:bg-[#00424d] text-white px-8 py-3 rounded-full no-underline font-bold transition shadow-lg inline-block">
+                Belanja Sekarang
+            </a>
         </div>
 
-        <img src="/public/img/DOC3.png" alt="Dokter">
+        <div class="w-1/2 flex justify-end z-10">
+            <img src="{{ asset('img/DOC3.png') }}" alt="Dokter MedStore" class="w-80 object-contain drop-shadow-xl">
+        </div>
+
+        <div class="absolute right-0 top-0 h-full w-1/2 bg-[#018790]/10 rounded-l-full"></div>
     </div>
+        
 
-    <!-- PRODUCT SECTION -->
-    <div class="product-section">
+    <div>
+        <h2 class="text-2xl font-bold text-[#005461] mb-6 border-b-2 border-[#005461] inline-block pb-1">
+            Produk
+        </h2>
 
-        <div class="product-card">
-            <img src="/public/img/ANTANGIN.png" alt="Antangin">
-            <h3>Antangin</h3>
-            <p>Rp 4.000</p>
-            <button>Tambah ke keranjang</button>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            @forelse($medicines as $medicine)
+            <div class="bg-white rounded-xl p-5 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 border border-gray-100 flex flex-col justify-between">
+                
+                <div class="h-40 flex items-center justify-center mb-4 overflow-hidden rounded-lg">
+                    <img src="{{ $medicine->image ? asset('img/' . $medicine->image) : asset('img/default-obat.jpg') }}" 
+                         alt="{{ $medicine->name }}" 
+                         class="h-full w-full object-contain">
+                </div>
+
+                <div>
+                    <h3 class="text-lg my-2 font-bold text-gray-800 line-clamp-2 min-h-[3.5rem] flex items-center justify-center">
+                        {{ $medicine->name }}
+                    </h3>
+                    <p class="text-[#018790] font-bold mb-4 text-xl">
+                        Rp {{ number_format($medicine->price, 0, ',', '.') }}
+                    </p>
+                    
+                    <button class="w-full py-2 bg-[#018790] hover:bg-[#006a70] text-white rounded-lg font-bold transition">
+                        + Keranjang
+                    </button>
+                </div>
+            </div>
+            @empty
+            <div class="col-span-4 text-center py-10 text-gray-500">
+                <p>Belum ada produk yang tersedia saat ini.</p>
+            </div>
+            @endforelse
+
         </div>
-
-        <div class="product-card">
-            <img src="/public/img/CAVIPLEX.png" alt="Caviplex">
-            <h3>Caviplex Tablet</h3>
-            <p>Rp 10.000</p>
-            <button>Tambah ke keranjang</button>
-        </div>
-
-        <div class="product-card">
-            <img src="public/img/PARACETAMOL.png" alt="Paracetamol">
-            <h3>Paracetamol 500mg</h3>
-            <p>Rp 5.000</p>
-            <button>Tambah ke keranjang</button>
-        </div>
-
-        <div class="product-card">
-            <img src="public/img/BODREX.png" alt="Bodrex Extra">
-            <h3>Bodrex Extra</h3>
-            <p>Rp 5.000</p>
-            <button>Tambah ke keranjang</button>
-        </div>
-
     </div>
-    </x-layout>
-</body>
-</html>
+</x-layout>
