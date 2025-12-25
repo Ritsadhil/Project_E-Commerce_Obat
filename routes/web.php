@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\CartController;
 
 Route::get('/', function () {
     $medicines = Medicine::all();
@@ -35,3 +36,9 @@ Route::put('/obat/{id}', [MedicineController::class, 'update'])->name('obat.upda
 Route::get('/obat', [MedicineController::class, 'index'])->name('obat.index');
 Route::get('/obat/{slug}', [MedicineController::class, 'show'])->name('obat.show');
 Route::get('/search', [MedicineController::class, 'search'])->name('obat.search');
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add/{medicine_id}', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/update/{cart_id}', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/remove/{cart_id}', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
