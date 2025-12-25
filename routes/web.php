@@ -11,14 +11,15 @@ use App\Http\Controllers\TransactionController;
 Route::get('/', function () {
     $medicines = Medicine::all();
     return view('front-pages.home', compact('medicines'));
-});
+})->name('home');
 
-// Auth
 Route::get('/register', [RegisterController::class, 'show'])->name('register.show');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
 Route::get('/login', [LoginController::class, 'show'])->name('login.show');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
+
+Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
