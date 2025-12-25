@@ -53,7 +53,7 @@
                                         type="text" 
                                         id="keyword"
                                         name="search"
-                                        class="rounded-md bg-gray-700 text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white"
+                                        class="w-100 rounded-md bg-white text-black px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white"
                                         placeholder="Cari obat..."
                                         autocomplete="off"
                                     >
