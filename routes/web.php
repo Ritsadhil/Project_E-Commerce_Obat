@@ -6,28 +6,12 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\MedicineController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () {
-    $medicines = Medicine::latest()->get();
+    $medicines = Medicine::all();
     return view('front-pages.home', compact('medicines'));
 });
-
-Route::get('/login', function () {
-    return view('login');
-});
-
-Route::get('/register', function () {
-    return view('register');
-});
-
-Route::get('/home', function () {
-    return view('front-pages.home');
-});
-    return view('front-pages.home');
-})->name('front-pages.home');
-
 
 // Auth
 Route::get('/register', [RegisterController::class, 'show'])->name('register.show');
