@@ -65,7 +65,16 @@ class CartController extends Controller
         return redirect()->back()->with('success', 'Produk berhasil dihapus dari keranjang!');
     }
 
-    public function checkout(Request $request)
+    public function checkoutPage()
+    {
+        $carts = Cart::where('user_id', Auth::id())->with('medicine')->get();
+        if ($carts->isEmpty()) {
+            return redirect()->route('cart.index')->with('error', 'Keranjang kosong!');
+        }
+        return view('front-pages.checkout', compact('carts'));
+    }
+
+    public function checkoutProcess(Request $request)
     {
         $carts = Cart::where('user_id', Auth::id())->with('medicine')->get();
 
@@ -82,7 +91,7 @@ class CartController extends Controller
             'user_id' => Auth::id(),
             'transaction_date' => now(),
             'total_price' => $total,
-            'shipping_address' => $request->shipping_address ?? 'Alamat tidak diisi',
+            'shipping_address' => $request->shipping_address ?? 'Alamat Default',
             'status' => 'dikemas',
         ]);
 

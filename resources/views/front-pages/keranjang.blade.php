@@ -6,17 +6,6 @@
 
             <h1 class="text-2xl font-bold mb-4">Keranjang</h1>
 
-            {{-- PILIH SEMUA --}}
-            <div class="flex items-center gap-2 mb-4">
-                <input
-                    type="checkbox"
-                    id="checkAll"
-                    class="accent-[#00B7B5] w-4 h-4"
-                >
-                <label for="checkAll" class="text-sm text-gray-700 cursor-pointer">
-                    Pilih Semua
-                </label>
-            </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
@@ -27,9 +16,6 @@
                         <div
                             class="border border-[#00B7B5] rounded-lg p-4 flex gap-4 items-center">
 
-                            <input
-                                type="checkbox"
-                                class="item-checkbox accent-[#00B7B5]">
 
                             {{-- GAMBAR --}}
                             <img
@@ -122,20 +108,17 @@
                         </span>
                     </div>
 
-                    <form action="{{ route('cart.checkout') }}" method="POST">
-    @csrf
-    <input type="text" name="shipping_address" placeholder="Alamat pengiriman" class="w-full mb-2 border rounded px-2 py-1">
-    <button type="submit"
-            class="w-full py-3 rounded-lg text-white font-nexa hover:opacity-90 transition"
-            style="background:#018790">
-        Beli ({{ $carts->count() }})
-    </button>
-</form>
-
-                </div>
-
-            </div>
-        </div>
+                    @if($carts->count() > 0)
+                    <a href="{{ route('checkout.page') }}"
+                           class="block w-full text-center py-3 rounded-lg text-white font-nexa hover:opacity-90 transition"
+                           style="background:#018790">
+                            Lanjut ke Checkout
+                        </a>
+                    @else
+                        <button disabled class="w-full py-3 rounded-lg bg-gray-300 text-white cursor-not-allowed">
+                            Keranjang Kosong
+                        </button>
+                    @endif
     </div>
 
     {{-- SCRIPT PILIH SEMUA --}}
