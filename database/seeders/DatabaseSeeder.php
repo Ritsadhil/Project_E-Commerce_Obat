@@ -21,8 +21,18 @@ class DatabaseSeeder extends Seeder
     ['email' => 'admin@gmail.com'],
     [
         'name' => 'Admin',
-        'password' => bcrypt('password'),
+        'password' => Hash::make('password'),
         'role' => 'admin',
+            ]
+        );
+
+        $buyer = User::firstOrCreate(
+            ['email' => 'budi@gmail.com'],
+            [
+                'name' => 'Budi Santoso',
+                'email' => 'budi@gmail.com',
+                'password' => Hash::make('password'),
+                'role' => 'user',
             ]
         );
 

@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
 
             // Terhubung ke Transaksi mana?
-            $table->foreignId('transaction_id')->constrained('transactions')->onDelete('cascade');
+            $table->foreignId('transaction_id')->constrained()->cascadeOnDelete();
 
             // Obat apa yang dibeli?
-            $table->foreignId('medicine_id')->constrained('medicines')->onDelete('cascade');
+            $table->foreignId('medicine_id')->constrained()->cascadeOnDelete();
 
             $table->integer('quantity'); // Jumlah beli
             $table->integer('price');    // Harga saat dibeli (Penting! Agar kalau harga obat naik, riwayat tetap harga lama)

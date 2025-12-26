@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->date('transaction_date');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->dateTime('transaction_date')->nullable();
             $table->integer('total_price');
-            $table->text('shipping_address');
+            $table->string('shipping_address');
             $table->enum('status', ['dikemas', 'dikirim', 'diterima'])->default('dikemas');
             $table->timestamps();
         });
