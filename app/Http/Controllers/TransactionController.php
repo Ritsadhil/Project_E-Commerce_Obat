@@ -74,4 +74,13 @@ class TransactionController extends Controller
 
         return redirect()->back()->with('success', 'Status pesanan berhasil diperbarui!');
     }
+    public function history()
+    {
+        $transactions = Transaction::with('details.medicine')
+            ->where('user_id', Auth::id())
+            ->latest()
+            ->get();
+
+        return view('front-pages.riwayat', compact('transactions'));
+    }
 }
