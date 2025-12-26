@@ -52,17 +52,21 @@
                 </p>
 
                 {{-- Tombol --}}
-                <div class="flex gap-4 pt-4">
-                    <button
-                        class="px-6 py-3 rounded-lg text-white font-semibold
-                        {{ $medicine->stock > 0
-                            ? 'bg-[#018790] hover:bg-[#016b6d]'
-                            : 'bg-gray-400 cursor-not-allowed' }}"
-                        {{ $medicine->stock <= 0 ? 'disabled' : '' }}
-                    >
-                        Tambah ke Keranjang
-                    </button>
+                <form action="{{ route('cart.add', $medicine->id) }}" method="POST">
+                    @csrf
+                    <div class="flex gap-4 pt-4">
+                        <button
+                            class="px-6 py-3 rounded-lg text-white font-semibold
+                            {{ $medicine->stock > 0
+                                ? 'bg-[#018790] hover:bg-[#016b6d]'
+                                : 'bg-gray-400 cursor-not-allowed' }}"
+                            {{ $medicine->stock <= 0 ? 'disabled' : '' }}
+                        >
+                            Tambah ke Keranjang
+                        </button>
                 </div>
+                </form>
+                
             </div>
 
             <div >
