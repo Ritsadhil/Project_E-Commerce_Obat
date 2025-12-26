@@ -74,7 +74,7 @@
                             <div class="font-bold text-[15px] truncate max-w-[150px] text-white">{{ Auth::user()->name }}</div>
                         </div>
 
-                        <a href="{{ route('riwayat.index') }}" title="Lihat Riwayat Pesanan">
+                        <a href="{{ route('home') }}" title="Lihat Riwayat Pesanan">
                             <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white border border-white/30 hover:bg-white/30 transition cursor-pointer">
                                  <i class="fa fa-user"></i>
                             </div>
