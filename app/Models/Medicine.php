@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Medicine extends Model
 {
@@ -26,9 +27,6 @@ class Medicine extends Model
         return $this->belongsTo(Category::class);
     }
 
-    /**
-     * Relasi: Obat ini ada di detail transaksi mana saja?
-     */
     public function transactionDetails()
     {
         return $this->hasMany(TransactionDetail::class);

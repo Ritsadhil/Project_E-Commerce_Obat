@@ -45,4 +45,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/cart/update/{cart_id}', [CartController::class, 'update'])->name('cart.update');
     Route::post('/cart/remove/{cart_id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+
+    Route::post('/checkout', [TransactionController::class, 'checkout'])->middleware('auth')->name('checkout');
+
+    Route::put('/dashboard/pesanan/{id}/update', [TransactionController::class, 'updateStatus'])->middleware('auth')->name('pesanan.update');
 });

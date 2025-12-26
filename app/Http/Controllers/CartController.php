@@ -8,6 +8,7 @@ use App\Models\Medicine;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use Illuminate\Support\Facades\Http;
 
 class CartController extends Controller
 {
