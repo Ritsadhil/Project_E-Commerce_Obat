@@ -81,7 +81,7 @@ class CartController extends Controller
             'user_id' => Auth::id(),
             'transaction_date' => now(),
             'total_price' => $total,
-            'shipping_address' => 'Alamat Default',
+            'shipping_address' => $request->shipping_address ?? 'Alamat tidak diisi',
             'status' => 'dikemas',
         ]);
 
