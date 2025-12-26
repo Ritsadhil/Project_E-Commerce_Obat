@@ -13,6 +13,7 @@ class MedicineController extends Controller
     // READ
     public function index()
     {
+
         $medicines = Medicine::with('category')->latest()->paginate(5);
         return view('back-pages.obat', ['medicines' => $medicines]);
     }
@@ -36,6 +37,8 @@ class MedicineController extends Controller
             'price'       => 'required|numeric',
             'stock'       => 'required|numeric',
             'description' => 'required',
+            'dosis'       => 'required',
+            'peringatan'  => 'required',
             'image'       => 'required|image|mimes:jpeg,png,jpg|max:4096'
         ]);
 
@@ -72,6 +75,8 @@ class MedicineController extends Controller
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
             'description' => 'nullable|string',
+            'dosis'       => 'nullable|string',
+            'peringatan'  => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'category_id' => 'required|exists:categories,id',
         ]);
@@ -82,6 +87,8 @@ class MedicineController extends Controller
         $medicine->price = $request->price;
         $medicine->stock = $request->stock;
         $medicine->description = $request->description;
+        $medicine->dosis = $request->dosis;
+        $medicine->peringatan = $request->peringatan;
         $medicine->category_id = $request->category_id;
         $medicine->slug = Str::slug($request->name);
 
@@ -115,5 +122,15 @@ class MedicineController extends Controller
         }
         $medicine->delete();
         return redirect()->route('obat.index')->with('success', 'Obat dihapus');
+    }
+
+    // PDF reporting
+    public function pdf()
+    {
+        $medicines = Medicine::with('category')->get();
+        $mpdf = new \Mpdf\Mpdf();
+        $html = view('back-pages.pdf', compact('medicines'))->render();
+        $mpdf->WriteHTML($html);
+        $mpdf->Output('laporan-obat.pdf', 'I');
     }
 }

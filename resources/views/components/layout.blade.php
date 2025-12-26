@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>{{ $title ?? 'MedStore' }}</title>
 
+    {{-- JQuery --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
     {{-- Font Nexa --}}
     <link href="https://fonts.cdnfonts.com/css/nexa-bold" rel="stylesheet">
 
@@ -12,6 +15,9 @@
 
     {{-- Tailwind --}}
     @vite('resources/css/app.css')
+
+    {{-- Java Script --}}
+    @vite('resources/js/app.js')
 </head>
 
 <body class="font-sans">
@@ -41,14 +47,25 @@
             </div>
 
             {{-- SEARCH --}}
-            <input type="text" placeholder="Cari obat..." class="w-[250px] px-3 py-2 bg-white border border-[#018790] rounded-[8px] shadow-sm outline-none focus:ring-1 focus:ring-[#018790]">
-
+            <div class="relative ml-4">
+                                <form action="/" method="GET" onsubmit="return false;">
+                                    <input 
+                                        type="text" 
+                                        id="keyword"
+                                        name="search"
+                                        class="w-100 rounded-md bg-white text-black px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white"
+                                        placeholder="Cari obat..."
+                                        autocomplete="off"
+                                    >
+                                </form>
+                            </div>
             {{-- NAV RIGHT --}}
             <div class="flex items-center text-white">
-                <i class="fa fa-cart-shopping text-[22px] mr-5"></i>
-                <div class="h-7 w-px bg-white/50 mr-5"></div>
+               
 
                 @auth
+                 <i class="fa fa-cart-shopping text-[22px] mr-5"></i>
+                <div class="h-7 w-px bg-white/50 mr-5"></div>
                     <div class="flex items-center gap-4">
                         <div class="text-right leading-tight hidden md:block">
                             <div class="font-bold text-[15px] truncate max-w-[150px] text-white">{{ Auth::user()->name }}</div>
