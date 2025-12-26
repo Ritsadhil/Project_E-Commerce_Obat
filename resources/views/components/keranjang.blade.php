@@ -45,28 +45,45 @@
                                 </p>
                             </div>
 
-                            {{-- QTY --}}
-                            <div class="flex items-center gap-2">
-                                <button
-                                    class="w-9 h-9 border border-[#00B7B5] rounded
-                                           text-[#00B7B5]
-                                           hover:bg-[#00B7B5] hover:text-white
-                                           transition">
-                                    -
-                                </button>
+{{-- QTY --}}
+<div class="flex items-center gap-2">
 
-                                <span class="min-w-[20px] text-center">
-                                    {{ $cart->quantity }}
-                                </span>
+    {{-- Form tombol minus --}}
+    <form action="{{ route('cart.update', $cart->id) }}" method="POST">
+        @csrf
+        <button
+            type="submit"
+            name="quantity"
+            value="{{ max(1, $cart->quantity - 1) }}"
+            class="w-9 h-9 border border-[#00B7B5] rounded
+                   text-[#00B7B5]
+                   hover:bg-[#00B7B5] hover:text-white
+                   transition">
+            -
+        </button>
+    </form>
 
-                                <button
-                                    class="w-9 h-9 border border-[#00B7B5] rounded
-                                           text-[#00B7B5]
-                                           hover:bg-[#00B7B5] hover:text-white
-                                           transition">
-                                    +
-                                </button>
-                            </div>
+    <span class="min-w-[20px] text-center">
+        {{ $cart->quantity }}
+    </span>
+
+    {{-- Form tombol plus --}}
+    <form action="{{ route('cart.update', $cart->id) }}" method="POST">
+        @csrf
+        <button
+            type="submit"
+            name="quantity"
+            value="{{ $cart->quantity + 1 }}"
+            class="w-9 h-9 border border-[#00B7B5] rounded
+                   text-[#00B7B5]
+                   hover:bg-[#00B7B5] hover:text-white
+                   transition">
+            +
+        </button>
+    </form>
+
+</div>
+
                         </div>
                     @empty
                         <p class="text-gray-500">Keranjang kosong</p>
@@ -96,14 +113,16 @@
                         </span>
                     </div>
 
-                    <button
-                        class="w-full py-3 rounded-lg
-                               text-white font-nexa
-                               hover:opacity-90
-                               transition"
-                        style="background:#018790">
-                        Beli ({{ $carts->count() }})
-                    </button>
+                    <form action="{{ route('cart.checkout') }}" method="POST">
+    @csrf
+    <input type="text" name="shipping_address" placeholder="Alamat pengiriman" class="w-full mb-2 border rounded px-2 py-1">
+    <button type="submit"
+            class="w-full py-3 rounded-lg text-white font-nexa hover:opacity-90 transition"
+            style="background:#018790">
+        Beli ({{ $carts->count() }})
+    </button>
+</form>
+
                 </div>
 
             </div>

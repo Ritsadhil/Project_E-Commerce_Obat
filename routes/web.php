@@ -41,4 +41,16 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add/{medicine_id}', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/update/{cart_id}', [CartController::class, 'update'])->name('cart.update');
 Route::post('/cart/remove/{cart_id}', [CartController::class, 'remove'])->name('cart.remove');
-Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+
+
+// ---------------- TRANSACTION ----------------
+Route::middleware('auth')->group(function () {
+    // User lihat semua transaksi
+    Route::get('/dashboard/pesanan', [TransactionController::class, 'index'])->name('pesanan.index');
+
+    // User lihat detail transaksi
+    Route::get('/dashboard/pesanan/{id}', [TransactionController::class, 'show'])->name('pesanan.show');
+
+    // Opsional: update status transaksi (admin)
+    Route::post('/dashboard/pesanan/{id}/status', [TransactionController::class, 'updateStatus'])->name('pesanan.updateStatus');
+});
