@@ -13,6 +13,8 @@ class Medicine extends Model
         'name',
         'slug',
         'description',
+        'dosis',
+        'peringatan',
         'image',
         'price',
         'stock',
