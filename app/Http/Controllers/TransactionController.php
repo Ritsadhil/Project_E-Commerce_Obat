@@ -25,4 +25,22 @@ class TransactionController extends Controller
 
         return redirect()->back()->with('success', 'Status pesanan berhasil diperbarui!');
     }
+
+    public function history()
+    {
+        $transactions = Transaction::where('user_id', auth()->id())->with('details.medicine')->latest()->get();
+        return view('front-pages.riwayat', compact('transactions'));
+    }
+
+    public function cancel(Request $request, $id)
+    {
+        $transaction = Transaction::where('user_id', auth()->id())->findOrFail($id);
+        if ($transaction->status !== 'dikemas') {
+            return redirect()->back()->with('error', 'Pesanan tidak dapat dibatalkan.');
+        }
+        $transaction->status = 'dibatalkan';
+        $transaction->save();
+
+        return redirect()->back()->with('success', 'Pesanan berhasil dibatalkan.');
+    }
 }

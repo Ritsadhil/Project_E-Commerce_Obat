@@ -21,6 +21,11 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/riwayat', [TransactionController::class, 'history'])->name('riwayat');
+    Route::post('/riwayat/{id}/cancel', [TransactionController::class, 'cancel'])->name('riwayat.cancel');
+});
+
 Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/dashboard', function () {
         return redirect()->route('obat.index');
