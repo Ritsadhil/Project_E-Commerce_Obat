@@ -66,8 +66,9 @@
                 @foreach($transaction->details as $detail)
                 <div class="flex gap-4 mb-4 {{ !$loop->last ? 'pb-4 border-b border-gray-100' : '' }}">
                     <div class="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-                        <img src="{{ asset('img/' . strtoupper(str_replace(' ', '', $detail->medicine->name)) . '.png') }}" alt="{{ $detail->medicine->name }}" class="w-full h-full object-contain p-2">
-                    </div>
+                    <img src="{{ asset('img/' . ($detail->medicine->image ?? 'DOC3.png')) }}" 
+                     alt="{{ $detail->medicine->name ?? 'Obat' }}" 
+                     class="w-full h-full object-cover">                    </div>
                     <div class="flex-1">
                         <h3 class="font-bold text-gray-800 mb-1">{{ $detail->medicine->name }}</h3>
                         <p class="text-gray-600 mb-2">{{ $detail->quantity }} {{ $detail->medicine->unit }} x Rp {{ number_format($detail->price, 0, ',', '.') }}</p>

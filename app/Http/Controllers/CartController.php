@@ -105,6 +105,6 @@ class CartController extends Controller
         }
 
         Cart::where('user_id', Auth::id())->delete();
-        return redirect()->route('home')->with('success', 'Checkout berhasil!');
+        return redirect()->route('riwayat')->with('success', 'Checkout berhasil!');
     }
 }
