@@ -46,12 +46,14 @@
                 </div>
                 <span class="px-4 py-1.5 
                     @if($transaction->status == 'diterima') bg-green-100 text-green-700
+                    @elseif($transaction->status == 'dikirim') bg-blue-100 text-blue-700
                     @elseif($transaction->status == 'dikemas') bg-yellow-100 text-yellow-700
                     @elseif($transaction->status == 'dibatalkan') bg-red-100 text-red-700
                     @else bg-gray-100 text-gray-700
                     @endif
                     rounded-full text-sm font-bold">
                     @if($transaction->status == 'diterima') Selesai
+                    @elseif($transaction->status == 'dikirim') Dikirim
                     @elseif($transaction->status == 'dikemas') Dikemas
                     @elseif($transaction->status == 'dibatalkan') Dibatalkan
                     @else {{ ucfirst($transaction->status) }}
@@ -88,6 +90,7 @@
                     </div>
                 </div>
                 @endif
+
 
                 @if($transaction->status == 'dibatalkan')
                 <!-- Cancellation Reason -->
