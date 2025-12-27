@@ -38,13 +38,14 @@
         <div class="w-[90%] mx-auto flex items-center justify-between">
 
             {{-- LOGO --}}
-            <div class="flex items-center gap-3">
+            <a href="{{ route('home') }}" class="flex items-center gap-3 hover:opacity-80 transition">
                 <x-logo class="w-[50px] h-[50px]" />
-                <span class="text-white text-[50px] font-extrabold leading-none tracking-[0.4px]
-                            [text-shadow:-1px_-1px_0_#00B7B5,1px_-1px_0_#00B7B5,-1px_1px_0_#00B7B5,1px_1px_0_#00B7B5]">
-                    MedStore
-                </span>
-            </div>
+                     <span class="text-white text-[50px] font-extrabold leading-none tracking-[0.4px]
+                    [text-shadow:-1px_-1px_0_#00B7B5,1px_-1px_0_#00B7B5,-1px_1px_0_#00B7B5,1px_1px_0_#00B7B5]">
+                     MedStore
+                    </span>
+
+            </a>
 
             {{-- SEARCH --}}
             <div class="relative ml-4">
@@ -64,16 +65,20 @@
                
 
                 @auth
-                 <i class="fa fa-cart-shopping text-[22px] mr-5"></i>
-                <div class="h-7 w-px bg-white/50 mr-5"></div>
+                <a href="{{ route('cart.index') }}" class="hover:text-[#00897b] transition relative">
+                     <i class="fa fa-cart-shopping text-[22px] mr-5"></i>
+                </a>                
+                 <div class="h-7 w-px bg-white/50 mr-5"></div>
                     <div class="flex items-center gap-4">
                         <div class="text-right leading-tight hidden md:block">
                             <div class="font-bold text-[15px] truncate max-w-[150px] text-white">{{ Auth::user()->name }}</div>
                         </div>
 
-                        <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white border border-white/30">
-                            <i class="fa fa-user"></i>
-                        </div>
+                        <a href="{{ route('home') }}" title="Lihat Riwayat Pesanan">
+                            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white border border-white/30 hover:bg-white/30 transition cursor-pointer">
+                                 <i class="fa fa-user"></i>
+                            </div>
+                        </a>
                         
                         <form action="{{ route('logout') }}" method="POST" class="m-0">
                             @csrf
