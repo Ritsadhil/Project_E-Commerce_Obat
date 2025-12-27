@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('supplier', function (Blueprint $table) {
-            $table->id();
-            $table->string('Nama_Supplier');
-            $table->string('Alamat');
-            $table->string('no_telp');
-            $table->timestamps();
+        Schema::table('medicines', function (Blueprint $table) {
+            $table->text('dosis')->nullable()->after('description'); // Tambah kolom Dosis
+            $table->text('peringatan')->nullable()->after('dosis');
         });
     }
 
@@ -25,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('supplier');
+        Schema::table('medicines', function (Blueprint $table) {
+            $table->dropColumn(['dosis', 'peringatan']);
+        });
     }
 };

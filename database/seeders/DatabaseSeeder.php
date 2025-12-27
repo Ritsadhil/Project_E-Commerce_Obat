@@ -3,23 +3,107 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Category;
+use App\Models\Medicine;
+use App\Models\Transaction;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Membuat user admin
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('password'),
+            'role' => 'admin',
+        ]);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $catTablet = Category::create(['name' => 'Tablet']);
+        $catSirup  = Category::create(['name' => 'Sirup']);
+        $catSalep  = Category::create(['name' => 'Salep']);
+        $catPil    = Category::create(['name' => 'Pil']);
+
+        Medicine::create([
+            'name' => 'Antangin Cair',
+            'slug' => Str::slug('Antangin Cair'),
+            'description' => 'Obat herbal masuk angin dalam bentuk cair sachet.',
+            'image' => 'antangin.jpg',
+            'price' => 4000,
+            'stock' => 100,
+            'category_id' => $catSirup->id,
+        ]);
+
+        Medicine::create([
+            'name' => 'Caviplex Tablet',
+            'slug' => Str::slug('Caviplex Tablet'),
+            'description' => 'Multivitamin lengkap untuk daya tahan tubuh.',
+            'image' => 'caviplex.jpg',
+            'price' => 10000,
+            'stock' => 50,
+            'category_id' => $catTablet->id,
+        ]);
+
+        Medicine::create([
+            'name' => 'Paracetamol 500mg',
+            'slug' => Str::slug('Paracetamol 500mg'),
+            'description' => 'Obat pereda nyeri dan penurun demam.',
+            'image' => 'paracetamol.jpg',
+            'price' => 5000,
+            'stock' => 200,
+            'category_id' => $catTablet->id,
+        ]);
+
+        Medicine::create([
+            'name' => 'Bodrex Extra',
+            'slug' => Str::slug('Bodrex Extra'),
+            'description' => 'Obat sakit kepala mencengkram yang ampuh.',
+            'image' => 'bodrex.jpg',
+            'price' => 5000,
+            'stock' => 80,
+            'category_id' => $catTablet->id,
+        ]);
+
+        Medicine::create([
+            'name' => 'Kalpanax Cream',
+            'slug' => Str::slug('Kalpanax Cream'),
+            'description' => 'Salep untuk mengatasi gatal jamur kulit.',
+            'image' => 'kalpanax.jpg',
+            'price' => 15000,
+            'stock' => 25,
+            'category_id' => $catSalep->id,
+        ]);
+
+        $buyer = User::firstOrCreate(
+            ['email' => 'budi@gmail.com'],
+            [
+                'name' => 'Budi Santoso',
+                'email' => 'budi@gmail.com',
+                'password' => Hash::make('password'),
+                'role' => 'user',
+            ]
+        );
+
+        Transaction::create([
+            'user_id' => $buyer->id,
+            'transaction_date' => now(),
+            'total_price' => 45000,
+            'shipping_address' => 'Jl. Merpati No. 10, Jakarta Selatan',
+            'status' => 'dikemas',
+        ]);
+
+        Transaction::create([
+            'user_id' => $buyer->id,
+            'transaction_date' => now()->subDays(1),
+            'total_price' => 125000,
+            'shipping_address' => 'Jl. Kebon Jeruk No. 5, Jakarta Barat',
+            'status' => 'dikirim',
         ]);
     }
 }
