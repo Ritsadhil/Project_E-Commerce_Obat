@@ -135,6 +135,26 @@
                         >{{ $medicine->description }}</textarea>
                     </div>
 
+                    <div class="flex-1 flex flex-col">
+                        <label class="text-white text-base font-semibold mb-1 block">Dosis</label>
+                        <textarea 
+                            name="dosis" 
+                            id="dosis"
+                            class="input-bottom-border w-full text-white text-sm py-2 px-3 flex-1"
+                            rows="3"
+                        >{{ $medicine->dosis }}</textarea>
+                    </div>
+
+                    <div class="flex-1 flex flex-col">
+                        <label class="text-white text-base font-semibold mb-1 block">Peringatan</label>
+                        <textarea 
+                            name="peringatan" 
+                            id="peringatan"
+                            class="input-bottom-border w-full text-white text-sm py-2 px-3 flex-1"
+                            rows="3"
+                        >{{ $medicine->peringatan }}</textarea>
+                    </div>
+
                 </div>
 
                 <div class="flex flex-col items-center justify-center">

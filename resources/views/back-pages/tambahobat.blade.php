@@ -122,6 +122,26 @@
                         >{{ old('description') }}</textarea>
                     </div>
 
+                    <div>
+                        <label class="text-white text-base font-semibold mb-1 block">Dosis</label>
+                        <textarea 
+                            name="dosis" 
+                            id="dosis"
+                            class="input-bottom-border w-full text-white text-sm py-2 px-3 flex-1"
+                            rows="3"
+                        >{{ old('dosis') }}</textarea>
+                    </div>
+
+                    <div>
+                        <label class="text-white text-base font-semibold mb-1 block">Peringatan</label>
+                        <textarea 
+                            name="peringatan" 
+                            id="peringatan"
+                            class="input-bottom-border w-full text-white text-sm py-2 px-3 flex-1"
+                            rows="3"
+                        >{{ old('peringatan') }}</textarea>
+                    </div>
+
                 </div>
 
                 <div class="flex flex-col items-center justify-center">
